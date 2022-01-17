@@ -31,7 +31,7 @@ class Palatte extends Component {
                 <Navbar 
                     level={level} 
                     updateLevel={this.updateLevel}
-                    handleChange={this.changeColorFormat}
+                    handleFormatChange={this.changeColorFormat}
                     />
                 <div className='Palette-colors'>
                     {colorBoxes}
