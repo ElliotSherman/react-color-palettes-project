@@ -11,7 +11,7 @@ import { IconButton } from '@mui/material';
 class Navbar extends Component {
     constructor(props){
         super(props);
-        this.state={format:'hex',open:false};
+        this.state={format:'hex',open:false, level: 500};
 
         this.handleFormatChange = this.handleFormatChange.bind(this);
         this.handleCloseSnkbr = this.handleCloseSnkbr.bind(this);
@@ -38,7 +38,7 @@ class Navbar extends Component {
                         min={100} 
                         max={900} 
                         step={100} 
-                        value={format}
+                        value={level}
                         onAfterChange={updateLevel}
                     />
                     </div>

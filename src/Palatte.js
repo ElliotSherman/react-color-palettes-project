@@ -36,7 +36,7 @@ class Palatte extends Component {
                 <div className='Palette-colors'>
                     {colorBoxes}
                 </div>
-                {/* footer here */}
+                <footer className='palette-footer'></footer>
             </div>
         );
     }
