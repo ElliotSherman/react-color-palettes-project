@@ -1,22 +1,14 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ColorBox from './ColorBox';
-import 'rc-slider/assets/index.css';
+import Navbar from './Navbar';
 import './Palette.css'
-import Slider, { Range } from 'rc-slider';
 
 
-class Palatte extends Component {
-    constructor(props){
-        super(props);
-        this.state = {level: 500}
-        this.updateLevel = this.updateLevel.bind(this);
-    }
-    updateLevel(level){
-        this.setState({level})
-    }
-    render() {
-        const {colors} = this.props.palette;
-        const {level} = this.state
+
+export default function Palatte (props) {
+    const {colors} = props.palette;
+
+        const [level ,setLevel] = useState(500);
         const colorBoxes = colors[level].map(color => (
             <ColorBox 
             background={color.hex}
@@ -25,17 +17,10 @@ class Palatte extends Component {
         ));
         return (
             <div className='Palette'>
-                <div className='slider'>
-                <Slider 
-                    defaultValue={this.state.level} 
-                    min={100} 
-                    max={900} 
-                    step={100} 
-                    onAfterChange={this.updateLevel}
+                <Navbar 
+                    level={level}
+                    setLevel={setLevel}
                 />
-                </div>
-                
-                {/* nav here */}
                 <div className='Palette-colors'>
                     {colorBoxes}
                 </div>
@@ -43,6 +28,3 @@ class Palatte extends Component {
             </div>
         );
     }
-}
-
-export default Palatte;
