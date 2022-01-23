@@ -1,3 +1,10 @@
+.Navbar{
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content: flex-start;
+    height: 5vh;
+}
 .slider{
     width: 340px;
     margin: 0 15px;
@@ -21,14 +28,9 @@
     height:13px ;
     margin-top:-3px ;
 }
-.Navbar{
-    display:flex;
-    flex-direction: row;
-    align-items:center;
-    justify-content: flex-start;
-}
+
 .logo{
-    height:4vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -50,4 +52,8 @@
 .personal-logo span{
     font-family: monospace;
     font-size: 0.8em;
+}
+.select-container{
+    margin-left: auto;
+    margin-right: 15px;
 }
