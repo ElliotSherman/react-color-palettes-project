@@ -1,6 +1,16 @@
 .Palette{
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 .Palette-colors{
-    height: 90%;
+    height: 90vh;
+}
+.palette-footer{
+    height: 5vh;
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: bold;
 }

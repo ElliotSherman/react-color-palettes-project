@@ -6,7 +6,7 @@ import './Palette.css'
 
 
 export default function Palatte (props) {
-    const {colors} = props.palette;
+    const {colors , paletteName ,emoji } = props.palette;
     const [level ,setLevel] = useState(500);
     const [format, setFormat] = useState('hex')
 
@@ -18,6 +18,7 @@ export default function Palatte (props) {
         <ColorBox 
         background={color[format]}
         name ={color.name}
+        key={color.id}
         />
     ));
     return (
@@ -31,7 +32,10 @@ export default function Palatte (props) {
             <div className='Palette-colors'>
                 {colorBoxes}
             </div>
-            {/* footer here */}
+            <footer className='palette-footer'>
+                {paletteName}
+            <span className='emoji'>{emoji}</span>
+            </footer>
         </div>
     );
 }
