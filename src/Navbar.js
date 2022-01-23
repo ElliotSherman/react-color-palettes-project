@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import './Navbar.css'
@@ -6,9 +6,19 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 
 export default function Navbar({level , setLevel , format , changeFormat}) {
+    const [open, setOpen] = useState(false);
+    const closeSnackbar = () => {
+        setOpen(false)
+    }
+    const handleFormatChange = (e) =>{
+        changeFormat(e);
+        setOpen(true);
+    }
 return (
     <header className='Navbar'>
         <div className='logo'>
@@ -18,7 +28,7 @@ return (
         <div className='slider-container'>
             <span>Level :{level}</span>
             <div className='slider'>
-                <Slider 
+                <Slider
                 defaultValue={level} 
                 min={100} 
                 max={900} 
@@ -33,7 +43,7 @@ return (
         <Select
           value={format}
           label="Format"
-          onChange={changeFormat}
+          onChange={handleFormatChange}
         >
           <MenuItem value='hex'>HEX - #ffffff</MenuItem>
           <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
@@ -41,6 +51,21 @@ return (
         </Select>
       </FormControl>
         </div>
+        <Snackbar
+        anchorOrigin={{vertical:'bottom',horizontal:'left'}}
+        open={open}
+        autoHideDuration={2000}
+        message={<span>Format Changed successfully!</span>}
+        ContentProps={{
+            'aria-describedby':'message-id'
+        }}
+        onClose={closeSnackbar}
+        action={[
+        <IconButton onClick={closeSnackbar} color='inherit' key='close' aria-label='close'>
+            <CloseIcon />
+        </IconButton>]
+        }
+      />
     </header>
     );
 }
