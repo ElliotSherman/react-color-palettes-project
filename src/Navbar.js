@@ -1,4 +1,5 @@
 import React ,{useState} from 'react';
+import { Link } from 'react-router-dom';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 import './Navbar.css'
@@ -22,7 +23,7 @@ export default function Navbar({level , setLevel , format , changeFormat}) {
 return (
     <header className='Navbar'>
         <div className='logo'>
-            <a href='#'>react-color-picker</a>
+            <Link to='/'>react-color-picker</Link>
             <sub className='personal-logo'><span>by</span> Elliot Sherman</sub>
         </div>
         <div className='slider-container'>

@@ -1,11 +1,12 @@
 import Palatte from "./Palatte";
 import {Routes , Route } from 'react-router-dom'
+import PaletteList from "./PaletteList";
 
 function App() {
   return (
     <>
     <Routes>
-      <Route  path='/' element={<h1>Individual Palette Page</h1>}/>
+      <Route  path='/' element={<PaletteList />}/>
       <Route path='palette/:id' element={<Palatte />} />
       </Routes>
     </>
