@@ -7,13 +7,9 @@ function PaletteList(props) {
     const palettes = seedColors;
     return (
         <div>
-            <MiniPalette/>
             <h1>React color palette list</h1>
             {palettes.map(palette => (
-                <p>
-                    <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>
-                </p>
-                
+                <MiniPalette {...palette} to={`/palette/${palette.id}`}>{palette.paletteName}</MiniPalette>
             ))}
         </div>
     );
