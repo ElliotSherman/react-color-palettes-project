@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
+import { useParams } from "react-router-dom";
 import './Palette.css'
+import seedColors from "./seedColors";
+import { generatePalette } from "./colorHelpers";
 
 
 
 export default function Palatte (props) {
-    const {colors , paletteName ,emoji } = props.palette;
+    // generate palette by url :id {
+    const id = useParams();
+    const paletteIndex = seedColors.filter(obj => obj.id === id.id)
+    const palette = generatePalette(paletteIndex[0]);
+    //  }
+    const {colors , paletteName ,emoji } = palette;
     const [level ,setLevel] = useState(500);
     const [format, setFormat] = useState('hex')
 
