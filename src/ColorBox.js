@@ -1,25 +1,16 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './ColorBox.css'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-class ColorBox extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            copied : false
-        }
-        this.changeCopyState = this.changeCopyState.bind(this);
-    }
-    changeCopyState(){
-        this.setState({copied:true},()=>{
-            setTimeout(()=> this.setState({copied:false}),1500);
-        });
-    }
-    render() {
-        const {name,background} = this.props;
-        const {copied} = this.state;
+export default function ColorBox({name,background}){
+    const [copied ,setCopied] = useState(false);
+    
+    const changeCopyState = () =>{
+        setCopied(true)
+        setTimeout(() => setCopied(false),1500);
+        };
         return (
-            <CopyToClipboard text={background} onCopy={this.changeCopyState}>
+            <CopyToClipboard text={background} onCopy={changeCopyState} >
             <div className='ColorBox'
             style={{background}}
             >
@@ -42,5 +33,3 @@ class ColorBox extends Component {
             </CopyToClipboard>
         );
     }
-}
-export default ColorBox;

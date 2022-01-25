@@ -1,80 +1,73 @@
-import React, { Component } from 'react';
+import React ,{useState} from 'react';
+import { Link } from 'react-router-dom';
 import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
+import './Navbar.css'
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 
-import './Navbar.css'
-import { IconButton, MenuItem } from '@mui/material';
-
-class Navbar extends Component {
-    constructor(props){
-        super(props);
-        this.state={format:'hex',open:false}
-        this.handleFormatChange = this.handleFormatChange.bind(this);
-        this.closeSnackbar = this.closeSnackbar.bind(this);
+export default function Navbar({level , setLevel , format , changeFormat}) {
+    const [open, setOpen] = useState(false);
+    const closeSnackbar = () => {
+        setOpen(false)
     }
-
-    handleFormatChange(e){
-        this.setState({format:e.target.value , open:true})
-        this.props.handleFormatChange(e.target.value)
+    const handleFormatChange = (e) =>{
+        changeFormat(e);
+        setOpen(true);
     }
-    closeSnackbar(){
-        this.setState({open:false})
-    }
-    render() {
-        const {level,updateLevel} = this.props;
-        const {format} = this.state;
-        return (
-            <header className='Navbar'>
-                <div className='logo'>
-                    <a href='#'>ReactColorPicker</a>
-                </div>
-                    <div className='slider-container'><span>Level: {level}</span>
-                    <div className='slider'>
-                    <Slider 
-                        defaultValue={level} 
-                        min={100} 
-                        max={900} 
-                        step={100} 
-                        onAfterChange={updateLevel}
-                    />
-                    </div>
-                    </div>
-                    <div className='select-container'>
-                        <Select
-                            value={format}
-                            onChange={this.handleFormatChange}
-                            >
-                            <MenuItem value='hex'>HEX - #ffffff </MenuItem>
-                            <MenuItem value='rgb'>RGB - rgb(255,255,255) </MenuItem>
-                            <MenuItem value='rgba'>RGBA - rgba(255,255,255,1.0) </MenuItem>
-                        </Select>
-                    </div>
-                    <Snackbar 
-                    anchorOrigin={{vertical:'bottom', horizontal: 'left'}}
-                    open={this.state.open}
-                    autoHideDuration={1500}
-                    message={<span>Format Changed Successfully!</span>}
-                    ContentProps={{
-                        "aria-describedby":"message-id"
-                    }}
-                    onClose={this.closeSnackbar}
-                    action={[
-                    <IconButton 
-                        onClick={this.closeSnackbar}
-                        color='inherit'
-                        key='close'
-                        aria-label='close'
-                        >
-                        <CloseIcon />
-                    </IconButton>]}
-                    />
-            </header>
-        );
-    }
+return (
+    <header className='Navbar'>
+        <div className='logo'>
+            <Link to='/'>react-color-picker</Link>
+            <sub className='personal-logo'><span>by</span> Elliot Sherman</sub>
+        </div>
+        <div className='slider-container'>
+            <span>Level :{level}</span>
+            <div className='slider'>
+                <Slider
+                defaultValue={level} 
+                min={100} 
+                max={900} 
+                step={100} 
+                onAfterChange={e => setLevel(e)}
+                />
+            </div>
+        </div>
+        <div className='select-container'>
+        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Format</InputLabel>
+        <Select
+          value={format}
+          label="Format"
+          onChange={handleFormatChange}
+        >
+          <MenuItem value='hex'>HEX - #ffffff</MenuItem>
+          <MenuItem value='rgb'>RGB - rgb(255,255,255)</MenuItem>
+          <MenuItem value='rgba'>RGBA - rgba(255,255,255,1.0)</MenuItem>
+        </Select>
+      </FormControl>
+        </div>
+        <Snackbar
+        anchorOrigin={{vertical:'bottom',horizontal:'left'}}
+        open={open}
+        autoHideDuration={2000}
+        message={<span>Format Changed successfully!</span>}
+        ContentProps={{
+            'aria-describedby':'message-id'
+        }}
+        onClose={closeSnackbar}
+        action={[
+        <IconButton onClick={closeSnackbar} color='inherit' key='close' aria-label='close'>
+            <CloseIcon />
+        </IconButton>]
+        }
+      />
+    </header>
+    );
 }
 
-export default Navbar;

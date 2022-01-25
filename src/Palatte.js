@@ -1,49 +1,49 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
+import { useParams } from "react-router-dom";
 import './Palette.css'
+import seedColors from "./seedColors";
+import { generatePalette } from "./colorHelpers";
 
 
-class Palatte extends Component {
-    constructor(props){
-        super(props);
-        this.state = {level: 500 ,format:'hex'}
-        this.updateLevel = this.updateLevel.bind(this);
-        this.changeColorFormat = this.changeColorFormat.bind(this);
+
+export default function Palatte (props) {
+    // generate palette by url :id {
+    const id = useParams();
+    const paletteIndex = seedColors.filter(obj => obj.id === id.id)
+    const palette = generatePalette(paletteIndex[0]);
+    //  }
+    const {colors , paletteName ,emoji } = palette;
+    const [level ,setLevel] = useState(500);
+    const [format, setFormat] = useState('hex')
+
+    const changeFormat = (e) => {
+        setFormat(e.target.value)
     }
-    updateLevel(level){
-        this.setState({level})
-    }
-    changeColorFormat(value){
-       this.setState({format:value})
-    }
-    render() {
-        const {colors , paletteName, emoji} = this.props.palette;
-        const {level,format} = this.state
-        const colorBoxes = colors[level].map(color => (
-            <ColorBox 
-            background={color[format]}
-            name ={color.name}
-            key={color.id}
+
+    const colorBoxes = colors[level].map(color => (
+        <ColorBox 
+        background={color[format]}
+        name ={color.name}
+        key={color.id}
+        />
+    ));
+    return (
+        <div className='Palette'>
+            <Navbar
+                format={format}
+                level={level}
+                setLevel={setLevel}
+                changeFormat={changeFormat}
             />
-        ));
-        return (
-            <div className='Palette'>
-                <Navbar 
-                    level={level} 
-                    updateLevel={this.updateLevel}
-                    handleFormatChange={this.changeColorFormat}
-                    />
-                <div className='Palette-colors'>
-                    {colorBoxes}
-                </div>
-                <footer className='palette-footer'>
-                    {paletteName}
-                    <span>{emoji}</span>
-                </footer>
+            <div className='Palette-colors'>
+                {colorBoxes}
             </div>
-        );
-    }
+            <footer className='palette-footer'>
+                {paletteName}
+            <span className='emoji'>{emoji}</span>
+            </footer>
+        </div>
+    );
 }
-
-export default Palatte;
