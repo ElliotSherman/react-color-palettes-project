@@ -1,9 +1,10 @@
 import React from 'react';
-import { withStyles } from '@mui/styles';
-import { positions } from '@mui/system';
+import { styled } from '@mui/system';
 
-const styles = {
-    root:{
+const MyStyles = {
+    Root:styled('div',{
+    name:'Root'
+    })({
         backgroundColor:'white',
         border:'1px solid black',
         borderRadius: '5px',
@@ -13,12 +14,16 @@ const styles = {
         "&:hover":{
             cursor:'pointer'
         }
-    },
-    colors:{
+    }),
+    Colors:styled('div',{
+        name:'Colors'
+    })({
         backgroundColor:'grey'
-    },
-    title:{
-        diplay:'flex',
+    }),
+    Title:styled('h5',{
+        name:'Title'
+    })({
+        display:'flex',
         justifyContent:'space-between',
         alignItems:'center',
         margin:'0',
@@ -26,23 +31,22 @@ const styles = {
         paddingTop:'0.5rem',
         fontSize:'1rem',
         position:'relative'
-    },
-    emoji:{
+    }),
+    Emoji:styled('span',{
+        name:'Emoji'
+    })({
         marginLeft:'0.5rem',
         fontSize:'1.5rem'
-    }
+    })
 };
 
-
- function MiniPalette({classes , paletteName , emoji }) {
+export default function MiniPalette({ paletteName , emoji }) {
+     const {Root , Colors , Title , Emoji} = MyStyles;
     return (
-        <div className={classes.root}>
-            <div className={classes.colors}></div>
-            <h5 className={classes.title}>
-                {paletteName}<span className={classes.emoji}>{emoji}</span>
-            </h5>
-        </div>
+        <Root>
+            <Colors>
+                <Title>{paletteName}<Emoji>{emoji}</Emoji></Title>
+            </Colors>
+        </Root>
     );
-}
-
-export default withStyles(styles)(MiniPalette);
+};
