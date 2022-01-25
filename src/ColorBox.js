@@ -3,9 +3,9 @@ import './ColorBox.css'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { useNavigate } from 'react-router-dom';
 
-export default function ColorBox({name,background}){
+export default function ColorBox({name,background , id , paletteId}){
     const [copied ,setCopied] = useState(false);
-    
+    const moreUrl = `/palette/${paletteId}/${id}`
     const changeCopyState = () =>{
         setCopied(true)
         setTimeout(() => setCopied(false),1500);
@@ -30,7 +30,7 @@ export default function ColorBox({name,background}){
                 </div>
                 <button className='copy-button'>Copy</button>
             </div>
-            <span onClick={e => {e.stopPropagation();navigate('/');}} className='see-more'>More</span>
+            <span onClick={e => {e.stopPropagation();navigate(moreUrl);}} className='see-more'>More</span>
             </div>
             </CopyToClipboard>
         );

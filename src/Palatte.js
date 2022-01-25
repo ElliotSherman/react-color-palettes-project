@@ -10,8 +10,8 @@ import { generatePalette } from "./colorHelpers";
 
 export default function Palatte (props) {
     // generate palette by url :id {
-    const id = useParams();
-    const paletteIndex = seedColors.filter(obj => obj.id === id.id)
+    const {id} = useParams();
+    const paletteIndex = seedColors.filter(obj => obj.id === id)
     const palette = generatePalette(paletteIndex[0]);
     //  }
     const {colors , paletteName ,emoji } = palette;
@@ -27,6 +27,8 @@ export default function Palatte (props) {
         background={color[format]}
         name ={color.name}
         key={color.id}
+        id={color.id}
+        paletteId={id}
         />
     ));
     return (

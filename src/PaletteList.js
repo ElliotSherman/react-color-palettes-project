@@ -2,7 +2,6 @@ import React from 'react';
 import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
 import {styled} from   "@mui/system"
-import { useNavigate } from 'react-router-dom';
 
 const MyStyles = {
     Root:styled('div',{
@@ -47,7 +46,9 @@ const MyStyles = {
 function PaletteList(props) {
     const {Root ,Container ,Nav, Palettes} = MyStyles;
     const palettes = seedColors;
-    
+    const paletteCards = palettes.map(palette => (
+        <MiniPalette key={palette.id} {...palette}>{palette.paletteName}</MiniPalette>
+        ))
 
     return (
         <Root>
@@ -56,9 +57,7 @@ function PaletteList(props) {
                     <h1>React color palette list</h1>
                 </Nav>
                 <Palettes>
-                {palettes.map(palette => (
-                <MiniPalette {...palette}>{palette.paletteName}</MiniPalette>
-                ))}
+                    {paletteCards}
                 </Palettes>
             </Container>
         </Root>
