@@ -9,7 +9,7 @@ const MyStyles = {
     name:'Root'
     })({
     backgroundColor:'blue',
-    height:'100%',
+    height:'100vh',
     display:'flex',
     alignItems:'flex-start',
     justifyContent:'center',
@@ -26,6 +26,7 @@ const MyStyles = {
     Nav:styled('nav',{
         name:'Nav'
     })({
+        color:'white',
         display:'flex',
         width:'100%',
         justifyContent:'space-between'
