@@ -1,8 +1,8 @@
 import React from 'react';
 import seedColors from './seedColors';
-// import {Link} from 'react-router-dom'
 import MiniPalette from './MiniPalette';
 import {styled} from   "@mui/system"
+import { useNavigate } from 'react-router-dom';
 
 const MyStyles = {
     Root:styled('div',{
@@ -42,9 +42,13 @@ const MyStyles = {
     })
 }
 
+
+
 function PaletteList(props) {
-    const {Root ,Container ,Nav, Palettes} = MyStyles
+    const {Root ,Container ,Nav, Palettes} = MyStyles;
     const palettes = seedColors;
+    
+
     return (
         <Root>
             <Container>
@@ -53,7 +57,7 @@ function PaletteList(props) {
                 </Nav>
                 <Palettes>
                 {palettes.map(palette => (
-                <MiniPalette {...palette} to={`/palette/${palette.id}`}>{palette.paletteName}</MiniPalette>
+                <MiniPalette {...palette}>{palette.paletteName}</MiniPalette>
                 ))}
                 </Palettes>
             </Container>

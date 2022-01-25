@@ -1,5 +1,6 @@
 import React from 'react';
-import { borderRadius, styled } from '@mui/system';
+import { styled } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 const MyStyles = {
     Root:styled('div',{
@@ -55,7 +56,10 @@ const MyStyles = {
     })
 };
 
-export default function MiniPalette({ paletteName , emoji, colors }) {
+
+
+export default function MiniPalette({ paletteName , emoji, colors , id }) {
+    const navigate = useNavigate();
      const {Root , Colors , Title , Emoji , MiniPaletteDispaly} = MyStyles;
      const miniColorPalette = colors.map(color => (
          <MiniPaletteDispaly 
@@ -65,7 +69,7 @@ export default function MiniPalette({ paletteName , emoji, colors }) {
         </MiniPaletteDispaly>
      ))
     return (
-        <Root>
+        <Root onClick={()=> navigate(`/palette/${id}`)}>
             <Colors>{miniColorPalette}</Colors>
             <Title>{paletteName}<Emoji>{emoji}</Emoji></Title>
         </Root>
