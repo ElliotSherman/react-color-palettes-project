@@ -8,7 +8,8 @@ function App() {
     <Routes>
       <Route  path='/' element={<PaletteList />}/>
       <Route path='palette/:id' element={<Palatte />} />
-      </Routes>
+      <Route path='palette/:id/:shades' element={<h1>Single color page</h1>} />
+    </Routes>
     </>
   );
 }
