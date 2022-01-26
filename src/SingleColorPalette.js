@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {useParams} from 'react-router-dom'
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 import ColorBox from './ColorBox';
-import { color } from '@mui/system';
+import Navbar from './Navbar';
+import PalletteFooter from './PalletteFooter';
 
 export default function SingleColorPalette(props) {
     // generate palette by url :id {
@@ -11,6 +12,7 @@ export default function SingleColorPalette(props) {
         const paletteIndex = seedColors.filter(obj => obj.id === id)
         const palette = generatePalette(paletteIndex[0]);
         //  }
+        const {paletteName, emoji} = palette;
         // filter out an array of shades from palette.colors by the key id that matches the id in the params 
         const genShades =(data , filterId)=>{
             const singleColors = data.colors;
@@ -22,18 +24,27 @@ export default function SingleColorPalette(props) {
             }
             return singledOutShades.slice(1)
         }
+        // functions from Palette need to be refactored
+        const [format, setFormat] = useState('hex')
+        const changeFormat = (e) => {
+        setFormat(e.target.value)
+    }
         // console.log(genShades(palette ,shades));
         const shadesArray = genShades(palette,shades);
         const shadeBoxes = shadesArray.map(shade => (
-            <ColorBox key={shade.name} name={shade.name} background={shade.hex} showLink={false}/>
+            <ColorBox key={shade.name} name={shade.name} background={shade[format]} showLink={false}/>
         ))
     return (
         <div className='Palette'>
-            <h1>Hello world</h1>
+            <Navbar
+                format={format}
+                changeFormat={changeFormat}
+                isFullPalette = {false}
+            />
             <div className='Palette-colors'>
                 {shadeBoxes}
             </div>
-
+            <PalletteFooter paletteName={paletteName} emoji={emoji}/>
         </div>
     );
 };

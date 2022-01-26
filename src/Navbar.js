@@ -11,7 +11,7 @@ import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 
-export default function Navbar({level , setLevel , format , changeFormat}) {
+export default function Navbar({level , setLevel , format , changeFormat , isFullPalette}) {
     const [open, setOpen] = useState(false);
     const closeSnackbar = () => {
         setOpen(false)
@@ -26,7 +26,8 @@ return (
             <Link to='/'>react-color-picker</Link>
             <sub className='personal-logo'><span>by</span> Elliot Sherman</sub>
         </div>
-        <div className='slider-container'>
+        {isFullPalette && (
+            <div className='slider-container'>
             <span>Level :{level}</span>
             <div className='slider'>
                 <Slider
@@ -38,6 +39,8 @@ return (
                 />
             </div>
         </div>
+        )}
+        
         <div className='select-container'>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Format</InputLabel>
