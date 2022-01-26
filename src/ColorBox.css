@@ -50,8 +50,14 @@
     text-transform: uppercase;
     font-size: 12px;
 }
+.light-text{
+    color:white;
+}
+.ColorBox .dark-text{
+    color: darkgrey;
+}
 .see-more{
-    background: rgba(255,255,255, 0.3);
+    background: rgba(255,255,255,0.3);
     position: absolute;
     border: none;
     right:0;

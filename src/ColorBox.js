@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import './ColorBox.css'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { useNavigate } from 'react-router-dom';
+import chroma from 'chroma-js';
 
 export default function ColorBox({name,background , id , paletteId , showLink}){
+    // control names and more link using chroma-luninance
+    const isDarkColor = chroma(background).luminance() <= 0.08;
+    const isLightColor = chroma(background).luminance() >= 0.5;
     const [copied ,setCopied] = useState(false);
     const moreUrl = `/palette/${paletteId}/${id}`
     const changeCopyState = () =>{
@@ -18,20 +22,23 @@ export default function ColorBox({name,background , id , paletteId , showLink}){
             >
             <div className={`copy-msg ${copied && "show"}`}>
                 <h1>Copied!</h1>
-                <p>{background}</p>    
+                <p className={isLightColor ? 'dark-text' : undefined} >{background}</p>    
             </div>
             <div 
                 className={`copy-overlay ${copied && "show"}`} 
                 style={{background}} 
             />
             <div className='copy-container'>
-                <div className='box-content'>
-                    <span>{name}</span>
+                <div className='box-content'> 
+                    <span className={isDarkColor ? 'light-text' : undefined} >{name}</span>
                 </div>
-                <button className='copy-button'>Copy</button>
+                <button className={isLightColor ? 'dark-text copy-button' : 'copy-button'}>Copy</button>
             </div>
             {showLink && (
-            <span onClick={e => {e.stopPropagation();navigate(moreUrl);}} className='see-more'>More</span>
+            <span 
+            onClick={e => {e.stopPropagation();navigate(moreUrl);}} 
+            className={isLightColor ? 'dark-text see-more' : 'see-more'}
+            >More</span>
             )}
             </div>
             </CopyToClipboard>
