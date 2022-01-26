@@ -1,12 +1,15 @@
 import React,{useState} from 'react';
-import {useParams} from 'react-router-dom'
+import {useParams , useNavigate} from 'react-router-dom'
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import PalletteFooter from './PalletteFooter';
+import './ColorBox.css'
 
 export default function SingleColorPalette(props) {
+    // setting useNavigate
+    const navigate = useNavigate();
     // generate palette by url :id {
         const {id , shades} = useParams();
         const paletteIndex = seedColors.filter(obj => obj.id === id)
@@ -32,10 +35,14 @@ export default function SingleColorPalette(props) {
         // console.log(genShades(palette ,shades));
         const shadesArray = genShades(palette,shades);
         const shadeBoxes = shadesArray.map(shade => (
-            <ColorBox key={shade.name} name={shade.name} background={shade[format]} showLink={false}/>
+            <ColorBox 
+                key={shade.name} 
+                name={shade.name} 
+                background={shade[format]} 
+                showLink={false}/>
         ))
     return (
-        <div className='Palette'>
+        <div className='SingleColorPalette Palette'>
             <Navbar
                 format={format}
                 changeFormat={changeFormat}
@@ -43,6 +50,9 @@ export default function SingleColorPalette(props) {
             />
             <div className='Palette-colors'>
                 {shadeBoxes}
+                <div className='go-back ColorBox'>
+                    <button onClick={()=> navigate(-1)} className='back-button'>Go Back</button>
+                </div>
             </div>
             <PalletteFooter paletteName={paletteName} emoji={emoji}/>
         </div>
