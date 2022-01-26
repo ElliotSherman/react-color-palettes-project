@@ -29,6 +29,7 @@ export default function Palatte (props) {
         key={color.id}
         id={color.id}
         paletteId={id}
+        showLink
         />
     ));
     return (
