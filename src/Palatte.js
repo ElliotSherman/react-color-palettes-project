@@ -2,22 +2,11 @@ import React, { useState } from 'react';
 import ColorBox from './ColorBox';
 import Navbar from './Navbar';
 import { useParams } from "react-router-dom";
-import './Palette.css'
 import seedColors from "./seedColors";
 import { generatePalette } from "./colorHelpers";
 import PalletteFooter from './PalletteFooter';
 import { withStyles } from '@mui/styles';
-
-const styles = {
-    Palette:{
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    colors:{
-        height: '90vh',
-    }
-}
+import styles from './styles/PaletteStyles'
 
 function Palette ({classes}) {
     // generate palette by url :id {

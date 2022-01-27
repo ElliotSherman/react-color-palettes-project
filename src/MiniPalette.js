@@ -1,77 +1,24 @@
 import React from 'react';
-import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import { withStyles } from '@mui/styles';
+import styles from './styles/MiniPaletteStyles'
 
-const MyStyles = {
-    Root:styled('div',{
-    name:'Root'
-    })({
-        height:'100%',
-        backgroundColor:'white',
-        border:'1px solid black',
-        borderRadius: '5px',
-        padding: '0.5rem',
-        position:'relative',
-        overflow:'hidden',
-        "&:hover":{
-            cursor:'pointer'
-        }
-    }),
-    Colors:styled('div',{
-        name:'Colors'
-    })({
-        backgroundColor:'grey',
-        height:'150px',
-        width:'100%',
-        borderRadius:'5px',
-        overflow:'hidden'
-    }),
-    Title:styled('h5',{
-        name:'Title'
-    })({
-        display:'flex',
-        justifyContent:'space-between',
-        alignItems:'center',
-        margin:'0',
-        color:'black',
-        paddingTop:'0.5rem',
-        fontSize:'1rem',
-        position:'relative'
-    }),
-    Emoji:styled('span',{
-        name:'Emoji'
-    })({
-        marginLeft:'0.5rem',
-        fontSize:'1.5rem'
-    }),
-    MiniPaletteDispaly:styled('div',{
-        name:'MiniPaletteDispaly'
-    })({
-        height:'25%',
-        width:'20%',
-        display:'inline-block',
-        margin:'0 auto',
-        position:'relative',
-        marginBottom:'-4px'
-    })
-};
-
-
-
-export default function MiniPalette({ paletteName , emoji, colors , id }) {
+function MiniPalette({ paletteName , emoji, colors , id , classes }) {
     const navigate = useNavigate();
-     const {Root , Colors , Title , Emoji , MiniPaletteDispaly} = MyStyles;
      const miniColorPalette = colors.map(color => (
-         <MiniPaletteDispaly 
+         <div
+         className={classes.miniColor} 
          style={{backgroundColor:color.color}}
          key={color.name}
          >
-        </MiniPaletteDispaly>
+        </div>
      ))
     return (
-        <Root onClick={()=> navigate(`/palette/${id}`)}>
-            <Colors>{miniColorPalette}</Colors>
-            <Title>{paletteName}<Emoji>{emoji}</Emoji></Title>
-        </Root>
+        <div className={classes.root} onClick={()=> navigate(`/palette/${id}`)}>
+            <div className={classes.colors}>{miniColorPalette}</div>
+            <h5 className={classes.title} >{paletteName}<span className={classes.emoji}>{emoji}</span></h5>
+        </div>
     );
 };
+
+export default withStyles(styles)(MiniPalette)
