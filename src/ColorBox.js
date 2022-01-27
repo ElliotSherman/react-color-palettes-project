@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { withStyles } from '@mui/styles';
-import './ColorBox.css'
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles/ColorBoxStyles'

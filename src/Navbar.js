@@ -1,8 +1,6 @@
 import React ,{useState} from 'react';
 import { Link } from 'react-router-dom';
-import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
-import './Navbar.css'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -10,8 +8,11 @@ import Select from '@mui/material/Select';
 import Snackbar from '@mui/material/Snackbar';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
+import styles from './styles/NavBarStyles'
+import { withStyles } from '@mui/styles';
+import 'rc-slider/assets/index.css';
 
-export default function Navbar({level , setLevel , format , changeFormat , isFullPalette}) {
+function Navbar({level , setLevel , format , changeFormat , isFullPalette , classes}) {
     const [open, setOpen] = useState(false);
     const closeSnackbar = () => {
         setOpen(false)
@@ -21,15 +22,15 @@ export default function Navbar({level , setLevel , format , changeFormat , isFul
         setOpen(true);
     }
 return (
-    <header className='Navbar'>
-        <div className='logo'>
+    <header className={classes.Navbar}>
+        <div className={classes.logo}>
             <Link to='/'>react-color-picker</Link>
-            <sub className='personal-logo'><span>by</span> Elliot Sherman</sub>
+            <sub className={classes.personalLogo}><span>by</span> Elliot Sherman</sub>
         </div>
         {isFullPalette && (
-            <div className='slider-container'>
+            <div className={classes.sliderContainer}>
             <span>Level :{level}</span>
-            <div className='slider'>
+            <div className={classes.slider}>
                 <Slider
                 defaultValue={level} 
                 min={100} 
@@ -41,7 +42,7 @@ return (
         </div>
         )}
         
-        <div className='select-container'>
+        <div className={classes.selectContainer}>
         <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">Format</InputLabel>
         <Select
@@ -74,3 +75,4 @@ return (
     );
 }
 
+export default withStyles(styles)(Navbar);
