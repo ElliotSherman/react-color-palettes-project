@@ -3,6 +3,7 @@ import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
 import styles from './styles/PaletteListStyles'
 import { withStyles } from '@mui/styles';
+import {Link} from 'react-router-dom'
 
 function PaletteList({classes}) {
     const palettes = seedColors;
@@ -14,6 +15,7 @@ function PaletteList({classes}) {
             <div className={classes.container}>
                 <nav className={classes.nav}>
                     <h1>React color palette list</h1>
+                    <Link to='palette/new'>Create Palatte</Link>
                 </nav>
                 <div className={classes.palettes}>
                     {paletteCards}
