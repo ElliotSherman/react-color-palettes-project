@@ -12,12 +12,14 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
+import DragableColorBox from './DragableColorBox';
 
 
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
+    height:'calc(100vh - 64px)',
     flexGrow: 1,
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
@@ -138,12 +140,11 @@ export default function NewPaletteForm() {
           color='info' onClick={addNewColor} >Add Color</Button>
       </Drawer>
       <Main open={open}>
-        <ul style={{marginTop:'100px'}}>
-          {colorBoxes.map( color => (
-            <li style={{backgroundColor:color.color}}>{color.name}</li>
+      <DrawerHeader />{colorBoxes.map( color => (
+            <DragableColorBox color={color.color} name={color.name}/>
           ))}
-        </ul>
       </Main>
+      
     </Box>
   );
 }
