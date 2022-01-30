@@ -65,9 +65,20 @@ export default function NewPaletteForm() {
 //   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [color, setColor] = useState('purple')
- 
+
+  //  create initial color boxes array 
+  const initialBoxes = [
+    {color:'blue',name:'initial blue'},
+    {color:'pink',name:'initial pink'},
+    {color:'brown',name:'initial brown'},
+  ];
+  const [colorBoxes , setColorBoxes ] = useState(initialBoxes);
+
+  const addNewColor = () => {
+    setColorBoxes([...colorBoxes,{color:color,name:color}])
+  }
   const changeColor = (newColor) => {
-    setColor(newColor)
+    setColor(newColor.hex)
   }
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -121,9 +132,17 @@ export default function NewPaletteForm() {
             <Button variant='outlined' color='primary'>Random Color</Button>
         </div>
         <ChromePicker color={color} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
-        <Button variant='contained' color='info' >Add Color</Button>
+        <Button 
+          variant='contained' 
+          style={{backgroundColor:color}} 
+          color='info' onClick={addNewColor} >Add Color</Button>
       </Drawer>
       <Main open={open}>
+        <ul style={{marginTop:'100px'}}>
+          {colorBoxes.map( color => (
+            <li style={{backgroundColor:color.color}}>{color.name}</li>
+          ))}
+        </ul>
       </Main>
     </Box>
   );
