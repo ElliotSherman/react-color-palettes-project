@@ -1,13 +1,14 @@
 import React from 'react';
-import seedColors from './seedColors';
+// import seedColors from './seedColors';
 import MiniPalette from './MiniPalette';
 import styles from './styles/PaletteListStyles'
 import { withStyles } from '@mui/styles';
 import {Link} from 'react-router-dom'
 
-function PaletteList({classes}) {
-    const palettes = seedColors;
-    const paletteCards = palettes.map(palette => (
+function PaletteList({classes , palettes}) {
+    const paletteList = palettes;
+    console.log(palettes)
+    const paletteCards = paletteList.map(palette => (
         <MiniPalette key={palette.id} {...palette}>{palette.paletteName}</MiniPalette>
         ))
     return (

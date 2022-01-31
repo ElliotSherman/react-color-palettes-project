@@ -15,6 +15,7 @@ import { ChromePicker } from 'react-color';
 import DragableColorBox from './DragableColorBox';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 
+
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -63,17 +64,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function NewPaletteForm() {
-//   const theme = useTheme();
+export default function NewPaletteForm({savePalette}) {
   const [open, setOpen] = useState(false);
   const [colorHex, setColorHex] = useState('')
   const [newName , setNewName] = useState('')
-  //  create initial color boxes array 
-  const initialBoxes = [
-    {color:'blue',name:'initial blue'},
-    {color:'pink',name:'initial pink'},
-    {color:'brown',name:'initial brown'},
-  ];
   const [colorBoxes , setColorBoxes ] = useState([]);
 
   const addNewColor = () => {
@@ -92,6 +86,13 @@ export default function NewPaletteForm() {
   };
   const handleChange = (e) => {
     setNewName(e.target.value);
+  };
+  function handleSubmit(){
+    const newPalette = {
+      paletteName:'New Test Palette',
+      colors: colorBoxes,
+    }
+    savePalette(newPalette)
   }
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value => {
@@ -105,11 +106,10 @@ export default function NewPaletteForm() {
       );
     });
   });
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} color='default'>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -123,6 +123,7 @@ export default function NewPaletteForm() {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
+          <Button color='primary' variant='contained' onClick={handleSubmit}>Save Palette</Button>
         </Toolbar>
       </AppBar>
       <Drawer
