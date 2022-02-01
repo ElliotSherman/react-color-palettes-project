@@ -64,11 +64,12 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function NewPaletteForm({savePalette}) {
+export default function NewPaletteForm({savePalette , palettes}) {
   const [open, setOpen] = useState(false);
   const [colorHex, setColorHex] = useState('')
   const [newName , setNewName] = useState('')
   const [colorBoxes , setColorBoxes ] = useState([]);
+  const [newPaletteName , setNewPaletteName] = useState('')
 
   const addNewColor = () => {
     const newColor = {color:colorHex,name:newName}
@@ -87,14 +88,20 @@ export default function NewPaletteForm({savePalette}) {
   const handleChange = (e) => {
     setNewName(e.target.value);
   };
+  const handlePaletteNameInput = (e)=>{
+    setNewPaletteName(e.target.value)
+  }
   function handleSubmit(){
-    let newName = 'New Test Palette'
+    let newName = newPaletteName;
     const newPalette = {
       paletteName:newName,
       id: newName.toLowerCase().replace(/ /g,'-'),
       colors: colorBoxes,
-    }
-    savePalette(newPalette)
+    };
+    savePalette(newPalette);
+  };
+  const handleDelete = () => {
+    alert('clicked')
   }
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", value => {
@@ -102,9 +109,14 @@ export default function NewPaletteForm({savePalette}) {
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
     });
-    ValidatorForm.addValidationRule("isColorUnique", value => {
+    ValidatorForm.addValidationRule("isColorUnique", (value) => {
       return colorBoxes.every(
-      ({ color }) => color !== colorHex
+      ({ color }) => color !== value
+      );
+    });
+    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
+      return palettes.every(
+        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
       );
     });
   });
@@ -125,7 +137,18 @@ export default function NewPaletteForm({savePalette}) {
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
-          <Button color='primary' variant='contained' onClick={handleSubmit}>Save Palette</Button>
+          <ValidatorForm onSubmit={handleSubmit} style={{display:'flex'}}>
+            <TextValidator 
+            validators={['required' , 'isPaletteNameUnique']}
+            errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
+            value={newPaletteName} 
+            onChange={handlePaletteNameInput}
+            variant="standard"
+            placeholder='Palette Name'
+            label='Palette Name' />
+            <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
+          </ValidatorForm>
+
         </Toolbar>
       </AppBar>
       <Drawer
@@ -173,7 +196,7 @@ export default function NewPaletteForm({savePalette}) {
       </Drawer>
       <Main open={open}>
       <DrawerHeader />{colorBoxes.map( color => (
-            <DragableColorBox color={color.color} name={color.name}/>
+            <DragableColorBox color={color.color} name={color.name} handleDelete={handleDelete} />
           ))}
       </Main>
     </Box>

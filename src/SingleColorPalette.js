@@ -9,12 +9,12 @@ import { withStyles } from '@mui/styles';
 import styles from './styles/PaletteStyles'
 
 
-function SingleColorPalette({classes}) {
+function SingleColorPalette({classes , palettes}) {
     // setting useNavigate
     const navigate = useNavigate();
     // generate palette by url :id {
         const {id , shades} = useParams();
-        const paletteIndex = seedColors.filter(obj => obj.id === id)
+        const paletteIndex = palettes.filter(obj => obj.id === id)
         const palette = generatePalette(paletteIndex[0]);
         //  }
         const {paletteName, emoji} = palette;
