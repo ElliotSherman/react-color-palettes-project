@@ -88,8 +88,10 @@ export default function NewPaletteForm({savePalette}) {
     setNewName(e.target.value);
   };
   function handleSubmit(){
+    let newName = 'New Test Palette'
     const newPalette = {
-      paletteName:'New Test Palette',
+      paletteName:newName,
+      id: newName.toLowerCase().replace(/ /g,'-'),
       colors: colorBoxes,
     }
     savePalette(newPalette)
