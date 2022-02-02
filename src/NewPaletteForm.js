@@ -65,12 +65,26 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function NewPaletteForm({savePalette , palettes}) {
+  const maxColorsInPalette = 20;
+
   const [open, setOpen] = useState(false);
   const [colorHex, setColorHex] = useState('')
   const [newName , setNewName] = useState('')
-  const [colorBoxes , setColorBoxes ] = useState([]);
+  const [colorBoxes , setColorBoxes ] = useState(palettes[0].colors);
   const [newPaletteName , setNewPaletteName] = useState('')
-  
+  const isPaletteFull = colorBoxes.length >= maxColorsInPalette;
+
+  const addRandomColor = () => {
+    // add random color from existing palettes
+    const allColors = palettes.map(p => p.colors).flat();
+    const rand = Math.floor(Math.random()*allColors.length);
+    const randomColor = allColors[rand];
+    setColorBoxes([...colorBoxes,randomColor])
+    console.log(randomColor);
+  }
+  const clearPalette = () =>{
+    setColorBoxes([]);
+  }
   const onSortEnd = ({oldIndex, newIndex}) => {
     setColorBoxes((colorBoxes) => arrayMove(colorBoxes, oldIndex, newIndex));
   };
@@ -152,7 +166,6 @@ export default function NewPaletteForm({savePalette , palettes}) {
             label='Palette Name' />
             <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
           </ValidatorForm>
-
         </Toolbar>
       </AppBar>
       <Drawer
@@ -176,8 +189,13 @@ export default function NewPaletteForm({savePalette , palettes}) {
         <Divider />
         <Typography variant='h4'>Design your palette</Typography>
         <div>
-            <Button variant='outlined' color='secondary'>Clear Palette</Button>
-            <Button variant='outlined' color='primary'>Random Color</Button>
+            <Button variant='outlined' color='secondary' onClick={clearPalette} >Clear Palette</Button>
+            <Button 
+            variant='outlined' 
+            color='primary' 
+            onClick={addRandomColor} 
+            disabled={colorBoxes.length >= maxColorsInPalette}
+            >Random Color</Button>
         </div>
         <ChromePicker color={colorHex} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
         <ValidatorForm onSubmit={addNewColor} style={{display:'flex'}}>
@@ -191,16 +209,21 @@ export default function NewPaletteForm({savePalette , palettes}) {
           onChange={handleChange}
           />
           <Button 
+          disabled={isPaletteFull}
           type='submit'
           variant='contained' 
-          style={{backgroundColor:colorHex}} 
-          color='info' >Add Color</Button>
+          style={ isPaletteFull ? {backgroundColor:'lightgray'} : {backgroundColor:colorHex}} 
+          color='info' >{isPaletteFull? 'Palette Full' : 'Add Color'}</Button>
         </ValidatorForm>
         
       </Drawer>
       <Main open={open}>
       <DrawerHeader />
-        <DragableColorList colorBoxes={colorBoxes} handleDelete={handleDelete} axis='xy' onSortEnd={onSortEnd}/>
+        <DragableColorList 
+        colorBoxes={colorBoxes} 
+        handleDelete={handleDelete} 
+        axis='xy' 
+        onSortEnd={onSortEnd}/>
       </Main>
     </Box>
   );
