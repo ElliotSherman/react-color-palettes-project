@@ -12,9 +12,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
-import DragableColorBox from './DragableColorBox';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
-
+import DragableColorList from './DragableColorList';
+import {arrayMove} from 'react-sortable-hoc'
 
 const drawerWidth = 400;
 
@@ -70,7 +70,10 @@ export default function NewPaletteForm({savePalette , palettes}) {
   const [newName , setNewName] = useState('')
   const [colorBoxes , setColorBoxes ] = useState([]);
   const [newPaletteName , setNewPaletteName] = useState('')
-
+  
+  const onSortEnd = ({oldIndex, newIndex}) => {
+    setColorBoxes((colorBoxes) => arrayMove(colorBoxes, oldIndex, newIndex));
+  };
   const addNewColor = () => {
     const newColor = {color:colorHex,name:newName}
     setColorBoxes([...colorBoxes,newColor])
@@ -103,6 +106,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
   const handleDelete = (colorName) => {
     setColorBoxes(colorBoxes.filter(color => color.name !== colorName))
   }
+  
   useEffect(() => {
     ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
       return colorBoxes.every(
@@ -195,9 +199,8 @@ export default function NewPaletteForm({savePalette , palettes}) {
         
       </Drawer>
       <Main open={open}>
-      <DrawerHeader />{colorBoxes.map( color => (
-            <DragableColorBox key={color.name} color={color.color} name={color.name} handleDelete={() => handleDelete(color.name)} />
-          ))}
+      <DrawerHeader />
+        <DragableColorList colorBoxes={colorBoxes} handleDelete={handleDelete} axis='xy' onSortEnd={onSortEnd}/>
       </Main>
     </Box>
   );
