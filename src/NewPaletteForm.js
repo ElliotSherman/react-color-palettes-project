@@ -100,11 +100,11 @@ export default function NewPaletteForm({savePalette , palettes}) {
     };
     savePalette(newPalette);
   };
-  const handleDelete = () => {
-    alert('clicked')
+  const handleDelete = (colorName) => {
+    setColorBoxes(colorBoxes.filter(color => color.name !== colorName))
   }
   useEffect(() => {
-    ValidatorForm.addValidationRule("isColorNameUnique", value => {
+    ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
       return colorBoxes.every(
         ({ name }) => name.toLowerCase() !== value.toLowerCase()
       );
@@ -196,7 +196,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
       </Drawer>
       <Main open={open}>
       <DrawerHeader />{colorBoxes.map( color => (
-            <DragableColorBox color={color.color} name={color.name} handleDelete={handleDelete} />
+            <DragableColorBox key={color.name} color={color.color} name={color.name} handleDelete={() => handleDelete(color.name)} />
           ))}
       </Main>
     </Box>

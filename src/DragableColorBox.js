@@ -12,7 +12,7 @@ const styles = {
         marginBottom:'0px',
         '&:hover svg':{
             color:'white',
-            transform:'scale(1.2)',
+            transform:'scale(1.5)',
         }
     },
     boxContent:{
@@ -27,6 +27,9 @@ const styles = {
         fontSize: '12px',
         display:'flex',
         justifyContent:'space-between'
+    },
+    deleteIcon:{
+        transition:'all 0.3s ease-in-out'
     }
 }
 
@@ -35,7 +38,7 @@ function DragableColorBox({color , name , handleDelete , classes}) {
         <div className={classes.root} style={{backgroundColor:color}}>
             <div className={classes.boxContent}>
                 <span>{name}</span>
-                <DeleteIcon onClick={handleDelete}/>
+                <DeleteIcon className={classes.deleteIcon} onClick={handleDelete}/>
             </div>
         </div>
     );
