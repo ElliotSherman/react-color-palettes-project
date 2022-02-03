@@ -11,10 +11,10 @@ function App() {
   const [palettes,setPalettes] = useState([...seedColors])
   const navigate = useNavigate();
   
-  const savePalette = (newPalette) => (
-    setPalettes([...palettes,newPalette]),    
+  const savePalette = (newPalette) => {
+    setPalettes([...palettes,newPalette])
     navigate('/')
-    )
+  }
   return (
     <>
     <Routes>

@@ -3,18 +3,15 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 import DragableColorList from './DragableColorList';
 import {arrayMove} from 'react-sortable-hoc'
+import NewPaletteFormNav from './NewPaletteFormNav';
 
 const drawerWidth = 400;
 
@@ -38,23 +35,6 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -66,21 +46,24 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function NewPaletteForm({savePalette , palettes}) {
   const maxColorsInPalette = 20;
+  // picks a random color from existing colors in the all color palette this is just to be used as a placeholder
+  const randColor = () => {
+    const allColors = palettes.map(p => p.colors).flat();
+    const rand = Math.floor(Math.random()*allColors.length);
+    const randomColor = allColors[rand];
+    return randomColor;
+  }
 
   const [open, setOpen] = useState(false);
-  const [colorHex, setColorHex] = useState('')
+  const [colorHex, setColorHex] = useState(randColor().color)
   const [newName , setNewName] = useState('')
   const [colorBoxes , setColorBoxes ] = useState(palettes[0].colors);
   const [newPaletteName , setNewPaletteName] = useState('')
   const isPaletteFull = colorBoxes.length >= maxColorsInPalette;
 
   const addRandomColor = () => {
-    // add random color from existing palettes
-    const allColors = palettes.map(p => p.colors).flat();
-    const rand = Math.floor(Math.random()*allColors.length);
-    const randomColor = allColors[rand];
-    setColorBoxes([...colorBoxes,randomColor])
-    console.log(randomColor);
+    setColorBoxes([...colorBoxes,randColor()])
+    // setColorHex(createRandColor().color)
   }
   const clearPalette = () =>{
     setColorBoxes([]);
@@ -129,45 +112,20 @@ export default function NewPaletteForm({savePalette , palettes}) {
     });
     ValidatorForm.addValidationRule("isColorUnique", (value) => {
       return colorBoxes.every(
-      ({ color }) => color !== value
-      );
-    });
-    ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
-      return palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+      ({ color }) => color !== colorHex
       );
     });
   });
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open} color='default'>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
-          </Typography>
-          <ValidatorForm onSubmit={handleSubmit} style={{display:'flex'}}>
-            <TextValidator 
-            validators={['required' , 'isPaletteNameUnique']}
-            errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
-            value={newPaletteName} 
-            onChange={handlePaletteNameInput}
-            variant="standard"
-            placeholder='Palette Name'
-            label='Palette Name' />
-            <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
-          </ValidatorForm>
-        </Toolbar>
-      </AppBar>
+      <NewPaletteFormNav 
+        newPaletteName={newPaletteName}
+        handlePaletteNameInput={handlePaletteNameInput}
+        handleSubmit={handleSubmit}
+        palettes={palettes}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+      />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -197,6 +155,8 @@ export default function NewPaletteForm({savePalette , palettes}) {
             disabled={colorBoxes.length >= maxColorsInPalette}
             >Random Color</Button>
         </div>
+        
+          
         <ChromePicker color={colorHex} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
         <ValidatorForm onSubmit={addNewColor} style={{display:'flex'}}>
           <TextValidator

@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom'
 
 function PaletteList({classes , palettes}) {
     const paletteList = palettes;
-    console.log(palettes)
     const paletteCards = paletteList.map(palette => (
         <MiniPalette key={palette.id} {...palette}>{palette.paletteName}</MiniPalette>
         ))
