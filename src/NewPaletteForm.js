@@ -7,11 +7,13 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { ChromePicker } from 'react-color';
-import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
+// import { ChromePicker } from 'react-color';
+// import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
+// import { ValidatorForm } from 'react-material-ui-form-validator';
 import DragableColorList from './DragableColorList';
 import {arrayMove} from 'react-sortable-hoc'
 import NewPaletteFormNav from './NewPaletteFormNav';
+import ColorPickerForm from './ColorPickerForm';
 
 const drawerWidth = 400;
 
@@ -103,19 +105,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
   const handleDelete = (colorName) => {
     setColorBoxes(colorBoxes.filter(color => color.name !== colorName))
   }
-  
-  useEffect(() => {
-    ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
-      return colorBoxes.every(
-        ({ name }) => name.toLowerCase() !== value.toLowerCase()
-      );
-    });
-    ValidatorForm.addValidationRule("isColorUnique", (value) => {
-      return colorBoxes.every(
-      ({ color }) => color !== colorHex
-      );
-    });
-  });
+
   return (
     <Box sx={{ display: 'flex' }}>
       <NewPaletteFormNav 
@@ -155,27 +145,10 @@ export default function NewPaletteForm({savePalette , palettes}) {
             disabled={colorBoxes.length >= maxColorsInPalette}
             >Random Color</Button>
         </div>
-        
-          
-        <ChromePicker color={colorHex} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
-        <ValidatorForm onSubmit={addNewColor} style={{display:'flex'}}>
-          <TextValidator
-          validators={['required','isColorNameUnique','isColorUnique']}
-          errorMessages={['Enter Color Name', 'Name Already Exists','Color Already Exists!']}
-          variant="standard"
-          placeholder='Color Name'
-          label='Color Name'
-          value={newName}
-          onChange={handleChange}
-          />
-          <Button 
-          disabled={isPaletteFull}
-          type='submit'
-          variant='contained' 
-          style={ isPaletteFull ? {backgroundColor:'lightgray'} : {backgroundColor:colorHex}} 
-          color='info' >{isPaletteFull? 'Palette Full' : 'Add Color'}</Button>
-        </ValidatorForm>
-        
+        {/* colorHex , newName */}
+        <ColorPickerForm 
+          colorHex={colorHex} newName={newName} isPaletteFull={isPaletteFull} addNewColor={addNewColor}
+          changeColor={changeColor} handleChange={handleChange} colorBoxes={colorBoxes} />
       </Drawer>
       <Main open={open}>
       <DrawerHeader />
