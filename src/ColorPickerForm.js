@@ -2,8 +2,26 @@ import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
+import { withStyles } from '@mui/styles';
 
-function ColorPickerForm({handleChange , changeColor , addNewColor , isPaletteFull , colorHex , newName , colorBoxes}) {
+
+const styles ={
+  picker:{
+    width: '100% !important',
+    marginTop: '2rem',
+  },
+  newColorBtn:{
+    padding:'1rem',
+    width:'100%',
+    marginTop: '1rem',
+  },
+  colorNameInput:{
+    width:'100%',
+    height:'70px',
+  }
+}
+
+function ColorPickerForm({classes , handleChange , changeColor , addNewColor , isPaletteFull , colorHex , newName , colorBoxes}) {
     useEffect(() => {
         ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
           return colorBoxes.every(
@@ -17,19 +35,22 @@ function ColorPickerForm({handleChange , changeColor , addNewColor , isPaletteFu
         });
       });
     return (
-        <div>
-        <ChromePicker color={colorHex} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
-        <ValidatorForm onSubmit={addNewColor} style={{display:'flex'}}>
+        <div className={classes.picker}>
+        <ChromePicker className={classes.picker} color={colorHex} onChange={(newColor)=>changeColor(newColor)} disableAlpha />
+        <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
           validators={['required','isColorNameUnique','isColorUnique']}
           errorMessages={['Enter Color Name', 'Name Already Exists','Color Already Exists!']}
-          variant="standard"
+          variant="filled"
           placeholder='Color Name'
           label='Color Name'
           value={newName}
           onChange={handleChange}
+          className={classes.colorNameInput}
+          margin='normal'
           />
           <Button 
+          className={classes.newColorBtn}
           disabled={isPaletteFull}
           type='submit'
           variant='contained' 
@@ -40,4 +61,4 @@ function ColorPickerForm({handleChange , changeColor , addNewColor , isPaletteFu
     );
 }
 
-export default ColorPickerForm;
+export default withStyles(styles)(ColorPickerForm);

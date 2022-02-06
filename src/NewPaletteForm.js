@@ -1,4 +1,4 @@
-import React, {useState , useEffect} from 'react';
+import React, {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,18 +7,13 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import { ChromePicker } from 'react-color';
-// import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
-// import { ValidatorForm } from 'react-material-ui-form-validator';
 import DragableColorList from './DragableColorList';
 import {arrayMove} from 'react-sortable-hoc'
 import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
 const drawerWidth = 400;
-// const styles = {
-  
-// }
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     height:'calc(100vh - 64px)',
@@ -39,6 +34,20 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 
+const Container = styled('div')(() => ({
+  width:'90%',
+  height:'100%',
+  display:'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+}))
+const Buttons = styled('div')(() => ({
+  width:'100%',
+  '& button':{
+    width:'50%'
+  }
+}))
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -109,7 +118,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
   }
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
       <NewPaletteFormNav 
         newPaletteName={newPaletteName}
         handlePaletteNameInput={handlePaletteNameInput}
@@ -122,9 +131,11 @@ export default function NewPaletteForm({savePalette , palettes}) {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
+          alignItems:'center',
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            alignItems:'center',
           },
         }}
         variant="persistent"
@@ -137,8 +148,9 @@ export default function NewPaletteForm({savePalette , palettes}) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <Typography variant='h4'>Design your palette</Typography>
-        <div>
+        <Container>
+          <Typography variant='h4' gutterBottom>Design your palette</Typography>
+        <Buttons>
             <Button variant='outlined' color='secondary' onClick={clearPalette} >Clear Palette</Button>
             <Button 
             variant='outlined' 
@@ -146,11 +158,12 @@ export default function NewPaletteForm({savePalette , palettes}) {
             onClick={addRandomColor} 
             disabled={colorBoxes.length >= maxColorsInPalette}
             >Random Color</Button>
-        </div>
+        </Buttons>
         {/* colorHex , newName */}
         <ColorPickerForm 
           colorHex={colorHex} newName={newName} isPaletteFull={isPaletteFull} addNewColor={addNewColor}
           changeColor={changeColor} handleChange={handleChange} colorBoxes={colorBoxes} />
+        </Container>
       </Drawer>
       <Main open={open}>
       <DrawerHeader />

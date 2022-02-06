@@ -76,7 +76,7 @@ function NewPaletteFormNav({
           </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
-          {/* <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
+          <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
             <TextValidator 
             validators={['required' , 'isPaletteNameUnique']}
             errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
@@ -86,7 +86,7 @@ function NewPaletteFormNav({
             placeholder='Palette Name'
             label='Palette Name' />
             <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
-          </ValidatorForm> */}
+          </ValidatorForm>
           <Link to='/'>
                 <Button color='secondary' variant='contained'>Go Back</Button>
             </Link>
