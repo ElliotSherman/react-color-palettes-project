@@ -29,6 +29,7 @@ export default {
         width:'100%',
         display:'grid',
         gridTemplateColumns:'repeat(3,30%)',
-        gridGap:'3%',
+        gridGap:'2rem',
+        justifyContent:'space-between',
     }
 };

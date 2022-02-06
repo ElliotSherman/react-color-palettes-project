@@ -20,22 +20,21 @@ function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName
     };
     return (
         <div>
-            <Button variant="outlined" 
+        <Button variant="outlined" 
             onClick={handleClickOpen}
             >
-        Open form dialog
-      </Button>
+        Save Palette
+        </Button>
       <Dialog 
       open={open} 
       onClose={handleClose}
       >
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Choose A Palette Name</DialogTitle>
+        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            Please Type in a unique name for your newly created palette.
           </DialogContentText>
-          <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
             <TextValidator 
             validators={['required' , 'isPaletteNameUnique']}
             errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
@@ -43,14 +42,19 @@ function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName
             onChange={handlePaletteNameInput}
             variant="standard"
             placeholder='Palette Name'
-            label='Palette Name' />
-            <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
-          </ValidatorForm>
-        </DialogContent>
+            label='Palette Name' 
+            fullWidth={true}
+            margin='normal'
+            />
+        
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button> 
+          <Button onClick={handleClose}>
+              Cancel</Button>
+          <Button color='primary' variant='contained' type='submit'>
+              Save Palette</Button>
         </DialogActions>
+        </DialogContent>
+        </ValidatorForm>
       </Dialog>
         </div>
     );

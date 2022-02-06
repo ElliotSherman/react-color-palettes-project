@@ -18,6 +18,12 @@ const styles = {
     display:'flex'
   },
   navBtns:{
+    display:'flex',
+    alignItems:'center',
+    "& button":{
+      marginRight:'1rem',
+      '& a':{textDecoration:'none'}
+    }
 
   }
 }
