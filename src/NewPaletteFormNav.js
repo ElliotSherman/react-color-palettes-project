@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react';
+import { withStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +12,14 @@ import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 400;
+const styles = {
+  root:{
+    display:'flex'
+  },
+  navBtns:{
 
+  }
+}
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })(({ theme, open }) => ({
@@ -19,6 +27,9 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    flexDirection:'row',
+    justifyContent:'space-between',
+    height:'64px',
     ...(open && {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: `${drawerWidth}px`,
@@ -30,6 +41,7 @@ const AppBar = styled(MuiAppBar, {
   }));
 
 function NewPaletteFormNav({
+    classes,
     palettes,
     open , 
     handleDrawerOpen , 
@@ -46,9 +58,9 @@ function NewPaletteFormNav({
       });
     })
     return (
-        <div>
-             <CssBaseline />
-      <AppBar position="fixed" open={open} color='default'>
+        <div className={classes.root} >
+        <CssBaseline />
+        <AppBar position="fixed" open={open} color='default'>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -62,7 +74,9 @@ function NewPaletteFormNav({
           <Typography variant="h6" noWrap component="div">
             Persistent drawer
           </Typography>
-          <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
+          </Toolbar>
+          <div className={classes.navBtns}>
+          {/* <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
             <TextValidator 
             validators={['required' , 'isPaletteNameUnique']}
             errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
@@ -72,14 +86,14 @@ function NewPaletteFormNav({
             placeholder='Palette Name'
             label='Palette Name' />
             <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
-            <Link to='/'>
+          </ValidatorForm> */}
+          <Link to='/'>
                 <Button color='secondary' variant='contained'>Go Back</Button>
             </Link>
-          </ValidatorForm>
-        </Toolbar>
+          </div>
       </AppBar>
         </div>
     );
 }
 
-export default NewPaletteFormNav;
+export default withStyles(styles)(NewPaletteFormNav);

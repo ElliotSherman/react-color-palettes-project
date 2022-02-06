@@ -16,7 +16,9 @@ import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
 const drawerWidth = 400;
-
+// const styles = {
+  
+// }
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     height:'calc(100vh - 64px)',
