@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
+import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 400;
 const styles = {
@@ -76,17 +77,11 @@ function NewPaletteFormNav({
           </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
-          <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
-            <TextValidator 
-            validators={['required' , 'isPaletteNameUnique']}
-            errorMessages={['Enter Palette Name' , 'Palette Name Exists']}
-            value={newPaletteName} 
-            onChange={handlePaletteNameInput}
-            variant="standard"
-            placeholder='Palette Name'
-            label='Palette Name' />
-            <Button color='primary' variant='contained' type='submit'>Save Palette</Button>
-          </ValidatorForm>
+          <PaletteMetaForm
+                handlePaletteNameInput ={handlePaletteNameInput}  
+                handleSubmit ={handleSubmit} 
+                newPaletteName={newPaletteName}
+          />
           <Link to='/'>
                 <Button color='secondary' variant='contained'>Go Back</Button>
             </Link>
