@@ -21,9 +21,9 @@ const styles = {
     display:'flex',
     alignItems:'center',
     "& button":{
-      marginRight:'1rem',
-      '& a':{textDecoration:'none'}
-    }
+      marginRight:'1rem'
+    },
+    '& a':{textDecoration:'none'}
 
   }
 }
