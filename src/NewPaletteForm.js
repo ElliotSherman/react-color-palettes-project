@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DragableColorList from './DragableColorList';
-import {arrayMove} from 'react-sortable-hoc'
+import {arrayMoveImmutable} from 'array-move'
 import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
 
@@ -82,7 +82,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
     setColorBoxes([]);
   }
   const onSortEnd = ({oldIndex, newIndex}) => {
-    setColorBoxes((colorBoxes) => arrayMove(colorBoxes, oldIndex, newIndex));
+    setColorBoxes((colorBoxes) => arrayMoveImmutable(colorBoxes, oldIndex, newIndex));
   };
   const addNewColor = () => {
     const newColor = {color:colorHex,name:newName}
@@ -104,13 +104,10 @@ export default function NewPaletteForm({savePalette , palettes}) {
   const handlePaletteNameInput = (e)=>{
     setNewPaletteName(e.target.value)
   }
-  function handleSubmit(){
-    let newName = newPaletteName;
-    const newPalette = {
-      paletteName:newName,
-      id: newName.toLowerCase().replace(/ /g,'-'),
-      colors: colorBoxes,
-    };
+  function handleSubmit(newPalette){
+      newPalette.id = newPaletteName.toLowerCase().replace(/ /g,'-')
+      newPalette.colors = colorBoxes
+      console.log(newPalette)
     savePalette(newPalette);
   };
   const handleDelete = (colorName) => {
@@ -120,6 +117,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
   return (
     <Box sx={{ display: 'flex'}}>
       <NewPaletteFormNav 
+        setNewPaletteName ={setNewPaletteName}
         newPaletteName={newPaletteName}
         handlePaletteNameInput={handlePaletteNameInput}
         handleSubmit={handleSubmit}
@@ -159,7 +157,6 @@ export default function NewPaletteForm({savePalette , palettes}) {
             disabled={colorBoxes.length >= maxColorsInPalette}
             >Random Color</Button>
         </Buttons>
-        {/* colorHex , newName */}
         <ColorPickerForm 
           colorHex={colorHex} newName={newName} isPaletteFull={isPaletteFull} addNewColor={addNewColor}
           changeColor={changeColor} handleChange={handleChange} colorBoxes={colorBoxes} />
@@ -167,7 +164,8 @@ export default function NewPaletteForm({savePalette , palettes}) {
       </Drawer>
       <Main open={open}>
       <DrawerHeader />
-        <DragableColorList 
+        <DragableColorList
+        distance={1}
         colorBoxes={colorBoxes} 
         handleDelete={handleDelete} 
         axis='xy' 

@@ -1,6 +1,7 @@
 import React from 'react';
-import {SortableContainer} from 'react-sortable-hoc'
+import {SortableContainer , SortableElement} from 'react-sortable-hoc'
 import DragableColorBox from './DragableColorBox';
+
 
 function DragableColorList ({colorBoxes , handleDelete}) {
     return (
@@ -11,7 +12,8 @@ function DragableColorList ({colorBoxes , handleDelete}) {
             key={color.name} 
             color={color.color} 
             name={color.name} 
-            handleDelete={() => handleDelete(color.name)} />
+            handleDelete={handleDelete} 
+            />
           ))}
         </div>
     );

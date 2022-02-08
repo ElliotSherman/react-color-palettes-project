@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react';
+import React, { useState , useEffect} from 'react';
 import { withStyles } from '@mui/styles';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import PaletteMetaForm from './PaletteMetaForm';
 
@@ -55,8 +55,13 @@ function NewPaletteFormNav({
     handlePaletteNameInput , 
     handleSubmit , 
     newPaletteName ,
+    setNewPaletteName ,
     }) {
-    
+    const handleHideForm = () => {
+      setFormShowing(false)
+      setNewPaletteName('')
+    }
+    const [formShowing , setFormShowing] = useState(false);
     useEffect(()=>{
       ValidatorForm.addValidationRule("isPaletteNameUnique", (value) => {
         return palettes.every(
@@ -83,16 +88,21 @@ function NewPaletteFormNav({
           </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
-          <PaletteMetaForm
-                handlePaletteNameInput ={handlePaletteNameInput}  
-                handleSubmit ={handleSubmit} 
-                newPaletteName={newPaletteName}
-          />
+          <Button color='primary' variant='outlined' onClick={() => setFormShowing(true)}>
+              Save Palette
+              </Button>
           <Link to='/'>
                 <Button color='secondary' variant='contained'>Go Back</Button>
             </Link>
           </div>
       </AppBar>
+       {formShowing && (<PaletteMetaForm
+                setNewPaletteName={setNewPaletteName}
+                handlePaletteNameInput ={handlePaletteNameInput}  
+                handleSubmit ={handleSubmit} 
+                newPaletteName={newPaletteName}
+                hideForm={handleHideForm}
+          />)}
         </div>
     );
 }

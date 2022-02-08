@@ -1,6 +1,5 @@
-import * as React from 'react';
+import React , {useState} from 'react';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -10,30 +9,27 @@ import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 
-function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName }) {
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName , hideForm }) {
+    const [stage, setStage] = useState('form');
+    const savePalette = (emoji) => {
+      const newPalette = {
+        paletteName: newPaletteName ,
+        emoji:emoji.native,
+        }
+      handleSubmit(newPalette)
+    } 
     return (
-        <div>
-        <Button variant="outlined" 
-            onClick={handleClickOpen}
-            >
-        Save Palette
-        </Button>
+      <>
+      <Dialog open={stage === 'emoji'} onClose={hideForm}>
+      <DialogTitle>Choose A Palette Emoji</DialogTitle>
+        <Picker onSelect={savePalette} title="Pick Palette Emoji"/>
+      </Dialog>
       <Dialog 
-      open={open} 
-      onClose={handleClose}
+      open={stage === 'form'} 
+      onClose={hideForm}
       >
         <DialogTitle>Choose A Palette Name</DialogTitle>
-        <Picker />
-        <ValidatorForm onSubmit={() => handleSubmit(newPaletteName)} style={{display:'flex'}}>
+        <ValidatorForm onSubmit={()=> setStage('emoji')} style={{display:'flex'}}>
         <DialogContent>
           <DialogContentText>
             Please Type in a unique name for your newly created palette.
@@ -51,15 +47,16 @@ function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName
             />
         
         <DialogActions>
-          <Button onClick={handleClose}>
+          <Button onClick={hideForm}>
               Cancel</Button>
-          <Button color='primary' variant='contained' type='submit'>
-              Save Palette</Button>
+                    <Button color='primary' variant='contained' type='submit'>
+              Save Palette
+              </Button>
         </DialogActions>
         </DialogContent>
         </ValidatorForm>
       </Dialog>
-        </div>
+      </>
     );
 }
 
