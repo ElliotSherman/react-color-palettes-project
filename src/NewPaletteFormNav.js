@@ -1,9 +1,7 @@
 import React, { useState , useEffect} from 'react';
 import { withStyles } from '@mui/styles';
-import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -11,41 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import { Link } from 'react-router-dom';
 import PaletteMetaForm from './PaletteMetaForm';
-
-const drawerWidth = 400;
-const styles = {
-  root:{
-    display:'flex'
-  },
-  navBtns:{
-    display:'flex',
-    alignItems:'center',
-    "& button":{
-      marginRight:'1rem'
-    },
-    '& a':{textDecoration:'none'}
-
-  }
-}
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-  })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    flexDirection:'row',
-    justifyContent:'space-between',
-    height:'64px',
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  }));
+import styles from './styles/NewPaletteFormNavStyles' 
+const { AppBar , drawerWidth , root , navBtns } = styles;
 
 function NewPaletteFormNav({
     classes,
@@ -107,4 +72,4 @@ function NewPaletteFormNav({
     );
 }
 
-export default withStyles(styles)(NewPaletteFormNav);
+export default withStyles({ drawerWidth , root , navBtns})(NewPaletteFormNav);

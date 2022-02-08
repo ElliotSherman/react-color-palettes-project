@@ -3,25 +3,12 @@ import Button from '@mui/material/Button';
 import { ChromePicker } from 'react-color';
 import { ValidatorForm,TextValidator } from 'react-material-ui-form-validator';
 import { withStyles } from '@mui/styles';
+import styles from './styles/ColorPickerFormStyles';
 
 
-const styles ={
-  picker:{
-    width: '100% !important',
-    marginTop: '2rem',
-  },
-  newColorBtn:{
-    padding:'1rem',
-    width:'100%',
-    marginTop: '1rem',
-  },
-  colorNameInput:{
-    width:'100%',
-    height:'70px',
-  }
-}
 
-function ColorPickerForm({classes , handleChange , changeColor , addNewColor , isPaletteFull , colorHex , newName , colorBoxes}) {
+function ColorPickerForm(
+  {classes , handleChange , changeColor , addNewColor , isPaletteFull , colorHex , newName , colorBoxes}) {
     useEffect(() => {
         ValidatorForm.addValidationRule("isColorNameUnique", (value) => {
           return colorBoxes.every(

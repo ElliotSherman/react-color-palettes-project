@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
@@ -11,53 +10,10 @@ import DragableColorList from './DragableColorList';
 import {arrayMoveImmutable} from 'array-move'
 import NewPaletteFormNav from './NewPaletteFormNav';
 import ColorPickerForm from './ColorPickerForm';
+import styles from './styles/NewPaletteFormStyles'
 
-const drawerWidth = 400;
-
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    height:'calc(100vh - 64px)',
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
-
-const Container = styled('div')(() => ({
-  width:'90%',
-  height:'100%',
-  display:'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-}))
-const Buttons = styled('div')(() => ({
-  width:'100%',
-  '& button':{
-    width:'50%'
-  }
-}))
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
-}));
-
-export default function NewPaletteForm({savePalette , palettes}) {
+const { drawerWidth , Main , Container , Buttons , DrawerHeader } = styles;
+export default function NewPaletteForm({savePalette , palettes }) {
   const maxColorsInPalette = 20;
   // picks a random color from existing colors in the all color palette this is just to be used as a placeholder
   const randColor = () => {
@@ -108,7 +64,7 @@ export default function NewPaletteForm({savePalette , palettes}) {
       newPalette.id = newPaletteName.toLowerCase().replace(/ /g,'-')
       newPalette.colors = colorBoxes
       console.log(newPalette)
-    savePalette(newPalette);
+      savePalette(newPalette);
   };
   const handleDelete = (colorName) => {
     setColorBoxes(colorBoxes.filter(color => color.name !== colorName))
