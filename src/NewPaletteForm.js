@@ -63,7 +63,6 @@ export default function NewPaletteForm({savePalette , palettes }) {
   function handleSubmit(newPalette){
       newPalette.id = newPaletteName.toLowerCase().replace(/ /g,'-')
       newPalette.colors = colorBoxes
-      console.log(newPalette)
       savePalette(newPalette);
   };
   const handleDelete = (colorName) => {

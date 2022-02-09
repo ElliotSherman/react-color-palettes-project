@@ -4,17 +4,27 @@ import PaletteList from "./PaletteList";
 import {Routes , Route } from 'react-router-dom'
 import NewPaletteForm from "./NewPaletteForm";
 import { useNavigate} from 'react-router-dom'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import seedColors from "./seedColors";
 
 function App() {
-  const [palettes,setPalettes] = useState([...seedColors])
+  const savedPalettes = JSON.parse(window.localStorage.getItem("palettes"))
+  const [palettes,setPalettes] = useState( savedPalettes || seedColors)
   const navigate = useNavigate();
-  
+
   const savePalette = (newPalette) => {
     setPalettes([...palettes,newPalette])
     navigate('/')
   }
+  function syncLocalStorage(){
+     window.localStorage.setItem("palettes",
+      JSON.stringify(palettes)
+      );
+  }
+  useEffect(()=>{
+    syncLocalStorage();
+  },[palettes])
+
   return (
     <>
     <Routes>
