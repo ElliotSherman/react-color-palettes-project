@@ -5,10 +5,10 @@ import styles from './styles/PaletteListStyles'
 import { withStyles } from '@mui/styles';
 import {Link} from 'react-router-dom'
 
-function PaletteList({classes , palettes}) {
+function PaletteList({classes , palettes , deletMiniPalette}) {
     const paletteList = palettes;
     const paletteCards = paletteList.map(palette => (
-        <MiniPalette key={palette.id} {...palette}>{palette.paletteName}</MiniPalette>
+        <MiniPalette key={palette.id} id={palette.id} deletMiniPalette={deletMiniPalette} {...palette}>{palette.paletteName} </MiniPalette>
         ))
     return (
         <div className={classes.root}>
