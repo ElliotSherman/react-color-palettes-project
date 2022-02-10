@@ -14,7 +14,7 @@ function PaletteList({classes , palettes , deletMiniPalette}) {
         <div className={classes.root}>
             <div className={classes.container}>
                 <nav className={classes.nav}>
-                    <h1>React color palette list</h1>
+                    <h1>React colors</h1>
                     <Link to='palette/new'>Create Palatte</Link>
                 </nav>
                 <div className={classes.palettes}>
