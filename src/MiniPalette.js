@@ -4,13 +4,13 @@ import { withStyles } from '@mui/styles';
 import styles from './styles/MiniPaletteStyles'
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function MiniPalette({ paletteName , emoji, colors , id , classes,  handleOpenDialag , setOpen }) {
+const MiniPalette = ({ paletteName , emoji, colors , id , classes,  handleOpenDialag , setOpen })=> {
     // const handleDelete = (e) =>{
     //     e.stopPropagation();
     //     deletMiniPalette(id)
     // }
-
-const openDeleteDialog=(e)=>{
+    // console.log(`rendered ${id}`);
+    const openDeleteDialog=(e)=>{
     e.stopPropagation();
     setOpen(true);
     handleOpenDialag(id);
@@ -25,7 +25,7 @@ const openDeleteDialog=(e)=>{
         </div>
      ))
     return (
-        <div className={classes.root} onClick={()=> navigate(`/palette/${id}`)}>
+        <div className={classes.root} onClick={()=>navigate(`/palette/${id}`)}>
                 <DeleteIcon 
                 className={classes.deleteIcon} 
                 style={{transition: 'all 0.3s ease-in-out'}}

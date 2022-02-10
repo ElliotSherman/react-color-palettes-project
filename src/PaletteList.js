@@ -18,7 +18,7 @@ import { blue , red } from '@mui/material/colors';
 function PaletteList({classes , palettes , deletMiniPalette}) {
     const [open , setOpen] = useState(false);
     const [deleteId , setDeleteID]=useState('');
-
+    
     const handleOpenDialag = (id) =>{
         setDeleteID(id);
     };
@@ -27,6 +27,8 @@ function PaletteList({classes , palettes , deletMiniPalette}) {
         setOpen(false);
         setDeleteID('')
     };
+    const handleCancel = () => (setOpen(false),setDeleteID(''));
+    const handleClose=()=>setOpen(false);
     const paletteList = palettes;
     const paletteCards = paletteList.map(palette => (
         <CSSTransition  key={palette.id} classNames='fade' timeout={500}>
@@ -44,7 +46,7 @@ function PaletteList({classes , palettes , deletMiniPalette}) {
                         {paletteCards}
                     </TransitionGroup>
             </div>
-            <Dialog open={open} aria-labelledby='delete-dialog-title' onClose={()=>setOpen(false)} >
+            <Dialog open={open} aria-labelledby='delete-dialog-title' onClose={handleClose} >
                 <DialogTitle id="delete-dialog-title">Are you sure?</DialogTitle>
         <List>
             <ListItem button onClick={handleDelete} >
@@ -55,7 +57,7 @@ function PaletteList({classes , palettes , deletMiniPalette}) {
                 </ListItemAvatar>
                 <ListItemText primary='Delete' />
             </ListItem>
-            <ListItem button onClick={()=>(setOpen(false),setDeleteID(''))}>
+            <ListItem button onClick={handleCancel}>
                 <ListItemAvatar>
                     <Avatar style={{backgroundColor:red[100] , color:red[500]}}>
                     <ClearIcon />

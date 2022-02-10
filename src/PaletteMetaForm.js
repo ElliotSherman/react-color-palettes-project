@@ -17,7 +17,6 @@ function PaletteMetaForm({handlePaletteNameInput , handleSubmit , newPaletteName
         emoji:emoji.native,
         }
       handleSubmit(newPalette)
-      setStage('')
     } 
     return (
       <>
