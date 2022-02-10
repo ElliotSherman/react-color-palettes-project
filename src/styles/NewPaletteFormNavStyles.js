@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
+import sizes from "./sizes"
 
 const styles = {
 drawerWidth : 400,
@@ -10,7 +11,7 @@ navBtns:{
     display:'flex',
     alignItems:'center',
     "& button":{
-      marginRight:'1rem'
+      marginRight:'0.5rem'
     },
     '& a':{textDecoration:'none'}
   },

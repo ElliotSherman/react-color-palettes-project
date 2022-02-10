@@ -1,3 +1,5 @@
+import sizes from "./sizes"
+
 export default {
     Navbar:{
         display:'flex',
@@ -24,7 +26,11 @@ export default {
                 width:'13px',
                 height:'13px',
                 marginTop:'-3px' ,
-            }
+        },
+        [`${sizes.down('md')}`]:{
+            width:'150px',
+
+        },
     },
     logo:{
         height: '100%',
@@ -39,7 +45,10 @@ export default {
         '& a':{
         textDecoration: 'none',
         color: 'black',
-        } 
+        },
+        [`${sizes.down('xs')}`]:{
+            display:'none',
+        },
     },
     personalLogo:{
         fontSize: '0.8rem',
