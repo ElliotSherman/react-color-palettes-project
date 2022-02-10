@@ -7,7 +7,7 @@ import { useNavigate ,useLocation} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import seedColors from "./seedColors";
 import { CSSTransition , TransitionGroup } from 'react-transition-group';
-import './App.css'
+import Page from "./Page";
 function App() {
   const location = useLocation();
   // console.log("location", location);
@@ -40,10 +40,10 @@ function App() {
         timeout={500}
       >
     <Routes location={location}>
-      <Route  path='/' element={<div className="page"><PaletteList palettes={palettes} deletMiniPalette={deletMiniPalette} /></div>}/>
-      <Route path='palette/:id' element={<div className="page"><Palette palettes={palettes}/></div>} />
-      <Route path='palette/:id/:shades' element={<div className="page"><SingleColorPalette palettes={palettes}/></div>} />
-      <Route path='palette/new' element={<div className="page"><NewPaletteForm  savePalette={savePalette} palettes={palettes}/></div>}/>
+      <Route  path='/' element={<Page><PaletteList palettes={palettes} deletMiniPalette={deletMiniPalette} /></Page>}/>
+      <Route path='palette/:id' element={<Page><Palette palettes={palettes}/></Page>} />
+      <Route path='palette/:id/:shades' element={<Page><SingleColorPalette palettes={palettes}/></Page>} />
+      <Route path='palette/new' element={<Page><NewPaletteForm  savePalette={savePalette} palettes={palettes}/></Page>}/>
     </Routes>
     </CSSTransition>
     </TransitionGroup>

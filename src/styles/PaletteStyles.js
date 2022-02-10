@@ -1,5 +1,20 @@
 import sizes from "./sizes"
 export default {
+    '@global':{
+        '.fade-exit':{
+            opacity:1
+        },
+        '.fade-exit-active':{
+            opacity:0,
+            transition:'opacity 500ms ease-out'
+        },
+        '.fade-enter':{
+            opacity:0,
+        },
+        '.fade-enter-active':{
+            opacity: 1,
+        },
+    },
     Palette:{
         height: '100vh',
         display: 'flex',
