@@ -1,7 +1,11 @@
 import sizes from "./sizes"
+import bg from './subtle-prism.svg'
 export default {
     root:{
-    backgroundColor:'blue',
+    /* background by SVGBackgrounds.com */
+    backgroundColor:'#85FFF4',
+    backgroundImage:`url(${bg})`,
+    overflow:'scroll',
     height:'100vh',
     display:'flex',
     alignItems:'flex-start',

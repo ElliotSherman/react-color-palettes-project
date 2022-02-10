@@ -8,6 +8,8 @@ export default {
         position:'relative',
         overflow:'hidden',
         cursor:'pointer',
+        webkitBoxShadow: '-5px 14px 10px 6px rgba(0,0,0,0.33)', 
+        boxShadow: '-5px 14px 10px 6px rgba(0,0,0,0.33)',
         "&:hover svg":{
             opacity:1
         }
