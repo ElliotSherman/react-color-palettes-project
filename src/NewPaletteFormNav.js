@@ -36,7 +36,6 @@ function NewPaletteFormNav({
     })
     return (
         <div className={classes.root} >
-        <CssBaseline />
         <AppBar position="fixed" open={open} color='default'>
         <Toolbar>
           <IconButton
