@@ -9,7 +9,7 @@ const MiniPalette = ({ paletteName , emoji, colors , id , classes,  handleOpenDi
     //     e.stopPropagation();
     //     deletMiniPalette(id)
     // }
-    console.log(`rendered ${id}`);
+    // console.log(`rendered ${id}`);
     const openDeleteDialog=(e)=>{
     e.stopPropagation();
     setOpen(true);
