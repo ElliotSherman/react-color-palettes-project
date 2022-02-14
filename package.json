@@ -1,8 +1,8 @@
 {
-  "homepage": "http://ElliotSherman.github.io/react-color-palettes-project",
   "name": "massive-color-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://ElliotSherman.github.io/react-color-palettes-project",
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -29,11 +29,11 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "predeploy":"npm run build",
-    "deploy": "gh-pages -d build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -58,5 +58,5 @@
   },
   "resolutions": {
     "mini-css-extract-plugin": "2.4.5"
- }
+  }
 }
