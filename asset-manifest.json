@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/react-color-palettes-project/static/css/main.f19d8b10.css",
+    "main.js": "/react-color-palettes-project/static/js/main.8a71a179.js",
+    "static/js/787.b924fbd2.chunk.js": "/react-color-palettes-project/static/js/787.b924fbd2.chunk.js",
+    "static/media/subtle-prism.svg": "/react-color-palettes-project/static/media/subtle-prism.239e567e22eb37de2bce35b54f8d210b.svg",
+    "index.html": "/react-color-palettes-project/index.html",
+    "main.f19d8b10.css.map": "/react-color-palettes-project/static/css/main.f19d8b10.css.map",
+    "main.8a71a179.js.map": "/react-color-palettes-project/static/js/main.8a71a179.js.map",
+    "787.b924fbd2.chunk.js.map": "/react-color-palettes-project/static/js/787.b924fbd2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f19d8b10.css",
+    "static/js/main.8a71a179.js"
+  ]
+}
